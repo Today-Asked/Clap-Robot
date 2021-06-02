@@ -7,41 +7,57 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome',
-      home: Scaffold(
-        //提供的widget，include很多東東
+        title: '一起拍手8', home: MyHomePage(title: 'Clappppp Yourself'));
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  static const List<Widget> _StateOption = <Widget>[
+    /*ListView(
+      children: <Widget>[
+        Card(
+          child: ListTile(title: Text('熱烈拍手'))
+        )
+      ],
+    ),*/
+  ];
+  void _onItemTap(int index) {
+    setState(() => _selectedIndex = index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
         appBar: AppBar(
-          //最上面那欄
-          title: Text('ClapppYourSelf'),
+          title: Text("Clappp Yourself"),
           leading: Icon(
-            //還沒弄完欸
-            Icons.pets,
+            Icons.bubble_chart,
             color: Colors.white,
             size: 36.0,
           ),
-          /*actions: IconButton(
-            icon: const IconData(58751, fontFamily: 'MaterialIcons'),
-          )*/
         ),
-        bottomNavigationBar: BottomNavigationBar(items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.pan_tool_rounded), title: Text('拍手模式')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.queue_music_rounded), title: Text('唱歌模式')),
-        ]),
-      ),
-    );
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.pan_tool_rounded), title: Text('拍手模式')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.queue_music_rounded), title: Text('唱歌模式')),
+          ],
+          onTap: _onItemTap,
+          currentIndex: _selectedIndex,
+        ),
+        body: Center(
+          child: _StateOption.elementAt(_selectedIndex),
+        ));
   }
 }
-
-/*class _RandomWords extends StatefulWidget {
-  @override
-  __RandomWordsState createState() => __RandomWordsState();
-}
-
-class __RandomWordsState extends State<_RandomWords> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}*/
